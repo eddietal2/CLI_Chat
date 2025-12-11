@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'advisor',
-    'django_celery_beat',
-    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -123,14 +121,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Celery Configuration
-from notta_celery import app as celery_app
-CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Use Redis as broker (install Redis separately)
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_TIMEZONE = TIME_ZONE
-CELERY_TASK_TRACK_STARTED = True
-CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 minutes
 
 # Email Configuration (update with your SMTP settings)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
