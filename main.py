@@ -191,8 +191,10 @@ async def main():
             print("\n" + "-"*30 + " ~ Llama Chat Closing " + "-"*30)
             custom_console.process_timer_elapsed_time_success()
             break
-        response = await google.llm.achat([ChatMessage(role="user", content=text_input)])
-        print(f"{custom_console.COLOR_YELLOW}\nAgent{custom_console.RESET_COLOR}: {response.message.content}\n")
+        result = await agent.run(user_msg=text_input)
+        response = result
+        print(f"Type: {type(response)}, Data: {response._data}")
+        print(f"{custom_console.COLOR_YELLOW}\nAgent{custom_console.RESET_COLOR}: {response}\n")
 
 if __name__ == "__main__":
     import asyncio
