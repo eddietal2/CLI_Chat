@@ -3,7 +3,7 @@
 💬 Concept
 Notta Advisor is a portfolio project designed to showcase advanced AI engineering techniques, primarily Retrieval-Augmented Generation (RAG) and Agentic Design, within a full-stack web application.
 
-The application functions as a scheduled, personalized investment analysis tool that critically assesses current market data against foundational financial wisdom.
+The application functions as a personalized investment analysis tool that critically assesses current market data against foundational financial wisdom. Analysis is run manually on demand.
 
 # Key Features
 
@@ -19,13 +19,13 @@ Full-Stack Delivery (Django): The application is built on Django, providing a ro
 
 User Management: Collecting and persisting user subscriptions via a simple one-page interface.
 
-Asynchronous Scheduling: Utilizing Celery Beat to trigger the complex analysis task reliably every Monday at 9:00 AM.
+Manual Analysis: Run the analysis on demand using Django management commands.
 
 Personalization: Tailoring the analysis based on user-selected investment interests (e.g., emphasizing Growth Stocks vs. Risk).
 
-Automated Delivery: The final, synthesized analysis is delivered directly to subscribers via email.
+Email Delivery: The final, synthesized analysis is delivered directly to subscribers via email.
 
 # Goal
-To demonstrate expertise in building a production-ready, scheduled, data-driven AI system that moves beyond simple Q&A and into complex, reasoned task execution.
+To demonstrate expertise in building a data-driven AI system that moves beyond simple Q&A and into complex, reasoned task execution.
 
 Disclaimer: Notta Advisor is for educational and illustrative purposes only and does not constitute financial advice.
