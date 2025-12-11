@@ -4,8 +4,12 @@ Initializes Llama Index's Google AI integration.
 
 import os
 import sys
+from dotenv import load_dotenv
 import custom_console
 from llama_index.llms.google_genai import GoogleGenAI
+
+# Load environment variables from .env file
+load_dotenv()
 
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
@@ -31,7 +35,7 @@ if not GOOGLE_API_KEY:
 try:
     llm = GoogleGenAI(
         # https://ai.google.dev/gemini-api/docs/models
-        model="models/gemini-2.5-pro",
+        model="models/gemini-2.5-flash",
         api_key=GOOGLE_API_KEY,
     )
     print(f"{custom_console.COLOR_GREEN}✅ Google AI initialized successfully (gemini-2.5-pro){custom_console.RESET_COLOR}\n")
