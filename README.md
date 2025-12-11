@@ -1,31 +1,91 @@
-# Notta Advisor
+# Gemi Chat 🤖
 
-💬 Concept
-Notta Advisor is a portfolio project designed to showcase advanced AI engineering techniques, primarily Retrieval-Augmented Generation (RAG) and Agentic Design, within a full-stack web application.
+A CLI-based AI chatbot for analyzing UBER SEC 10-K filings using Retrieval-Augmented Generation (RAG) and Google's Gemini API.
 
-The application functions as a personalized investment analysis tool that critically assesses current market data against foundational financial wisdom. Analysis is run manually on demand.
+## 🚀 Features
 
-# Key Features
+- **AI-Powered Analysis**: Interactive chat with a FunctionAgent that answers questions about UBER's financial data from 2019-2022.
+- **RAG with LlamaIndex**: Indexes SEC filings for accurate, context-aware responses.
+- **CLI Interface**: Simple command-line tools for data loading and chatting.
+- **Modular Design**: Clean, maintainable code structure for easy extension.
 
-Agentic Workflow: The core of the project is an AI Agent built with Llama Index and powered by the Gemini API. This agent can autonomously plan, reason, and execute multi-step tasks.
+## 📦 Installation
 
-# Multi-Modal Data Ingestion (RAG & Tools):
+1. **Clone the repo**:
+   ```bash
+   git clone https://github.com/yourusername/gemi-chat.git
+   cd gemi-chat
+   ```
 
-RAG (Fundamental Wisdom): The Agent is grounded in the principles of value investing by indexing and retrieving information from the classic text, "The Intelligent Investor."
+2. **Install dependencies** (using uv for speed):
+   ```bash
+   uv sync
+   ```
 
-Tool Use (Market Data): The Agent uses a custom Python function (built with yfinance) to fetch real-time and historical data for key high-growth stocks ("Mag 10").
+3. **Set up environment**:
+   - Create a `.env` file: `GOOGLE_API_KEY=your_gemini_api_key`
+   - Or set the env var: `$env:GOOGLE_API_KEY = "your_key"`
 
-Full-Stack Delivery (Django): The application is built on Django, providing a robust framework for:
+## 🛠️ Usage
 
-User Management: Collecting and persisting user subscriptions via a simple one-page interface.
+- **Load and index data**:
+  ```bash
+  python -m src.cli --load-data
+  ```
 
-Manual Analysis: Run the analysis on demand using Django management commands.
+- **Start interactive chat**:
+  ```bash
+  python -m src.cli --chat
+  ```
 
-Personalization: Tailoring the analysis based on user-selected investment interests (e.g., emphasizing Growth Stocks vs. Risk).
+- **View help**:
+  ```bash
+  python -m src.cli --help
+  ```
 
-Email Delivery: The final, synthesized analysis is delivered directly to subscribers via email.
+Example chat: Ask questions like "What were UBER's revenue trends in 2020?" and get AI-powered answers based on the filings.
 
-# Goal
-To demonstrate expertise in building a data-driven AI system that moves beyond simple Q&A and into complex, reasoned task execution.
+## 📁 Project Structure
 
-Disclaimer: Notta Advisor is for educational and illustrative purposes only and does not constitute financial advice.
+```
+Gemi_Chat/
+├── src/                          # Main package
+│   ├── __init__.py              # Package init
+│   ├── config.py                # Settings & env vars
+│   ├── data_loader.py           # Loads UBER HTML data
+│   ├── index_manager.py         # Manages vector indices
+│   ├── ageny.py                 # AI agent & tools
+│   ├── cli.py                   # Command-line interface
+│   ├── custom_console.py        # Console utilities
+│   └── google_llm_init.py       # Gemini LLM setup
+├── pyproject.toml               # Project config & deps
+├── system_prompt.txt            # Agent system prompt
+├── .env                         # Environment variables
+├── data/UBER/                   # UBER SEC filings
+└── storage/                     # Persisted indices
+```
+
+### Module Details
+
+- **`config.py`**: Centralized configuration (years, paths, API keys).
+- **`data_loader.py`**: Data ingestion with UnstructuredReader.
+- **`index_manager.py`**: Vector index creation/persistence.
+- **`ageny.py`**: Agent setup with query engines and chat loop.
+- **`cli.py`**: CLI with argparse for commands.
+- **`custom_console.py`**: Spinners, colors, timers.
+- **`google_llm_init.py`**: Google Gemini LLM initialization.
+
+## 🤝 Contributing
+
+1. Fork the repo.
+2. Create a feature branch.
+3. Commit changes.
+4. Push and open a PR.
+
+## 📄 License
+
+MIT License - see LICENSE file for details.
+
+## ⚠️ Disclaimer
+
+This is for educational purposes only. Not financial advice.
