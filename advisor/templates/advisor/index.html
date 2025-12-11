@@ -8,6 +8,8 @@
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
     <div class="container mx-auto px-4 py-8">
+        <!-- Modal Overlay for Mobile -->
+        <div id="modalOverlay" class="fixed inset-0 bg-black bg-opacity-40 z-40 hidden translate-y-full transition-transform duration-500"></div>
         <div class="flex flex-col lg:flex-row gap-6 max-w-7xl mx-auto">
             <!-- Main Content Column -->
             <div class="lg:flex-1 bg-white rounded-xl shadow-lg p-8 transition-all duration-500 ease-in-out" id="mainContent">
@@ -44,10 +46,10 @@
             </div>
 
             <!-- Canvas Column -->
-            <div class="lg:flex-none lg:w-0 bg-white rounded-xl shadow-lg p-6 transition-all duration-500 ease-in-out opacity-0 max-h-0 overflow-hidden" id="canvas">
+            <div class="lg:flex-none lg:w-0 bg-white rounded-xl shadow-lg p-6 transition-transform transition-opacity duration-500 ease-in-out opacity-0 max-h-0 overflow-hidden fixed inset-0 z-50 translate-y-full lg:static lg:translate-y-0 lg:opacity-100 lg:max-h-screen lg:rounded-xl lg:shadow-lg lg:p-6" id="canvas">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-xl font-semibold text-gray-800">AI Insight Canvas</h3>
-                    <button id="closeCanvas" class="text-gray-500 hover:text-gray-700 lg:hidden">
+                    <button id="closeCanvas" class="text-gray-500 hover:text-gray-700">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
@@ -61,21 +63,65 @@
     </div>
 
     <script>
+        function isMobile() {
+            return window.innerWidth < 1024;
+        }
+
+        const canvas = document.getElementById('canvas');
+        const mainContent = document.getElementById('mainContent');
+        const modalOverlay = document.getElementById('modalOverlay');
+
+        function openCanvas() {
+            if (isMobile()) {
+                // Show modal overlay
+                modalOverlay.classList.remove('hidden');
+                setTimeout(() => {
+                    modalOverlay.classList.remove('translate-y-full');
+                }, 10);
+                // Animate modal up
+                canvas.classList.remove('translate-y-full', 'opacity-0', 'max-h-0');
+                canvas.classList.add('opacity-100', 'max-h-screen');
+            } else {
+                // Desktop sidebar behavior
+                canvas.classList.remove('opacity-0', 'max-h-0', 'lg:flex-none', 'lg:w-0');
+                canvas.classList.add('opacity-100', 'max-h-screen', 'lg:flex-none', 'lg:w-2/3', 'lg:p-8');
+                mainContent.classList.remove('lg:flex-1');
+                mainContent.classList.add('lg:flex-none', 'lg:w-1/3');
+            }
+        }
+
+        function closeCanvas() {
+            if (isMobile()) {
+                // First, slide modal down
+                canvas.classList.add('translate-y-full');
+                modalOverlay.classList.add('translate-y-full');
+                // Then, after slide, fade and shrink
+                setTimeout(() => {
+                    canvas.classList.remove('opacity-100', 'max-h-screen');
+                    canvas.classList.add('opacity-0', 'max-h-0');
+                }, 500);
+                // Hide overlay after its animation
+                setTimeout(() => {
+                    modalOverlay.classList.add('hidden');
+                }, 500);
+            } else {
+                // Desktop sidebar behavior
+                canvas.classList.remove('opacity-100', 'max-h-screen', 'lg:flex-none', 'lg:w-2/3', 'lg:p-8');
+                canvas.classList.add('opacity-0', 'max-h-0', 'lg:flex-none', 'lg:w-0');
+                mainContent.classList.remove('lg:flex-none', 'lg:w-1/3');
+                mainContent.classList.add('lg:flex-1');
+            }
+        }
+
         document.getElementById('questionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const question = document.getElementById('question').value;
-            const canvas = document.getElementById('canvas');
             const canvasContent = document.getElementById('canvasContent');
 
             // Show loading
             canvasContent.innerHTML = '<div class="flex items-center justify-center h-32"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div></div>';
 
-            // Show canvas
-            const mainContent = document.getElementById('mainContent');
-            canvas.classList.remove('opacity-0', 'max-h-0', 'lg:flex-none', 'lg:w-0');
-            canvas.classList.add('opacity-100', 'max-h-screen', 'lg:flex-none', 'lg:w-2/3', 'lg:p-8');
-            mainContent.classList.remove('lg:flex-1');
-            mainContent.classList.add('lg:flex-none', 'lg:w-1/3');
+            openCanvas();
 
             // Send AJAX request
             fetch('', {
@@ -98,12 +144,27 @@
         });
 
         document.getElementById('closeCanvas').addEventListener('click', function() {
-            const canvas = document.getElementById('canvas');
-            const mainContent = document.getElementById('mainContent');
-            canvas.classList.remove('opacity-100', 'max-h-screen', 'lg:flex-none', 'lg:w-2/3', 'lg:p-8');
-            canvas.classList.add('opacity-0', 'max-h-0', 'lg:flex-none', 'lg:w-0');
-            mainContent.classList.remove('lg:flex-none', 'lg:w-1/3');
-            mainContent.classList.add('lg:flex-1');
+            closeCanvas();
+        });
+
+        // Close modal if overlay is clicked (mobile only)
+        modalOverlay.addEventListener('click', function() {
+            if (isMobile()) closeCanvas();
+        });
+
+        // Responsive: reset canvas/modal state on resize
+        window.addEventListener('resize', function() {
+            if (!isMobile()) {
+                // Ensure modal overlay is hidden and canvas is sidebar
+                modalOverlay.classList.add('hidden', 'translate-y-full');
+                canvas.classList.remove('translate-y-full', 'opacity-0', 'max-h-0');
+                canvas.classList.add('opacity-100', 'max-h-screen', 'lg:flex-none', 'lg:w-2/3', 'lg:p-8');
+            } else {
+                // Ensure canvas is hidden as modal
+                canvas.classList.add('translate-y-full', 'opacity-0', 'max-h-0');
+                canvas.classList.remove('opacity-100', 'max-h-screen', 'lg:flex-none', 'lg:w-2/3', 'lg:p-8');
+                modalOverlay.classList.add('hidden', 'translate-y-full');
+            }
         });
     </script>
 </body>
