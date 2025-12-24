@@ -76,20 +76,21 @@ def start_process_timer():
     global start_time
     start_time = time.time()
     print(f"""
-    {COLOR_CYAN}~ ChiLLama Chat 🤖{RESET_COLOR} 
-          
-    |{COLOR_CYAN}oooo{RESET_COLOR}|        |{COLOR_CYAN}oooo{RESET_COLOR}|
-    |{COLOR_CYAN}oooo{RESET_COLOR}| .----. |{COLOR_CYAN}oooo{RESET_COLOR}|
-    |{COLOR_CYAN}Oooo{RESET_COLOR}|/\_||_/\|{COLOR_CYAN}oooO{RESET_COLOR}|
+    {COLOR_CYAN}~ ChiLLama Chat 🤖{RESET_COLOR}
+""")
+    print(r"""
+    |oooo|        |oooo|
+    |oooo| .----. |oooo|
+    |Oooo|/_||_/|oooO|
     `----' / __ \ `----'
     ,/ |#|/\/__\/\|#| \,
-   /  \|#|| |/\| ||#|/  \\
-  / \_/|_|| |/\| ||_|\_/ \\
+   /  \|#|| |/\| ||#|/  \
+  / \_/|_|| |/\| ||_|\_/ \
  |_\/    o\=----=/o    \/_|
  <_>      |=\__/=|      <_>
  <_>      |------|      <_>
  | |   ___|======|___   | |
-//\\\\  / |O|======|O| \  //\\\\
+//\\  / |O|======|O| \  //\\
 |  |  | |O+------+O| |  |  |
 |\/|  \_+/        \+_/  |\/|
 \__/  _|||        |||_  \__/
@@ -99,9 +100,9 @@ def start_process_timer():
       >_<          >_<
      || ||        || ||
      || ||        || ||
-     || ||        || ||    -- Art Created by Jay Thaler 
+     || ||        || ||    -- Art Created by Jay Thaler
    __|\_/|__    __|\_/|__     (https://www.asciiart.eu/electronics/robots)
-  /___n_n___\  /___n_n___\\
+  /___n_n___\  /___n_n___\
 """)
     print(f"\n🚀 {COLOR_MAGENTA}~ Started @ ({datetime.now().strftime('%I:%M %p').lower()}){RESET_COLOR}\n")
 
@@ -112,12 +113,12 @@ def process_timer_elapsed_time_success():
     print(f"\n✅ {COLOR_GREEN}Completed in {time.time() - start_time:.2f} seconds{RESET_COLOR}\n")
     print(f"{COLOR_GREEN}██████████████████{RESET_COLOR}\n")
     print(f"""
-                    | 
-    ____________    __ {COLOR_GREEN}-+-{RESET_COLOR}  ____________ 
-    \_____     /   /_ \{COLOR_GREEN} |{RESET_COLOR}   \     _____/
-     \_____    \____/  \____/    _____/
-      \_____                    _____/
-         \___________  ___________/
+                    |
+    ____________    __ {COLOR_GREEN}-+-{RESET_COLOR}  ____________
+    \\_____     /   /_ \\{COLOR_GREEN} |{RESET_COLOR}   \\     _____/
+     \\_____    \\____/  \\____/    _____/
+      \\_____                    _____/
+         \\___________  ___________/
                    /____\\
     """)
     return time.time() - start_time

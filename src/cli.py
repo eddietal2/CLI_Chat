@@ -1,3 +1,18 @@
+"""
+Main program for CLI Chat.
+
+Available commands:
+  --load-data    Load and index UBER data
+  --chat         Start interactive chat
+  --verbose, -v  Enable verbose output
+
+Usage examples:
+  python -m src.cli --load-data          # Load and index data
+  python -m src.cli --chat               # Start chat interface
+  python -m src.cli --chat --verbose     # Start chat with verbose output
+  python -m src.cli --load-data --verbose # Load data with verbose output
+"""
+
 import argparse
 import asyncio
 from . import custom_console

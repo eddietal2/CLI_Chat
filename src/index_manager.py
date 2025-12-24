@@ -4,7 +4,10 @@ from llama_index.core import Settings
 from .config import YEARS, STORAGE_DIR, GOOGLE_API_KEY, CHUNK_SIZE
 
 Settings.chunk_size = CHUNK_SIZE
-Settings.embed_model = GoogleGenAIEmbedding(api_key=GOOGLE_API_KEY)
+if GOOGLE_API_KEY:
+    Settings.embed_model = GoogleGenAIEmbedding(api_key=GOOGLE_API_KEY)
+else:
+    raise ValueError("GOOGLE_API_KEY is required but not set. Please check your .env file or environment variables.")
 
 def setup_indices(doc_set):
     index_set = {}
