@@ -45,6 +45,19 @@ A CLI-based AI chatbot for analyzing UBER SEC 10-K filings using Retrieval-Augme
 
 Example chat: Ask questions like "What were UBER's revenue trends in 2020?" and get AI-powered answers based on the filings.
 
+## 🏗️ Architecture
+
+### Auto-Generated Diagrams
+Keep architecture diagrams up-to-date with your codebase:
+
+```bash
+python generate_architecture.py
+```
+
+This script automatically analyzes the `src/` directory and regenerates:
+- `architecture_diagram.md` - Detailed component diagram
+- `codebase_analysis.md` - Module analysis report
+
 ## 📁 Project Structure
 
 ```

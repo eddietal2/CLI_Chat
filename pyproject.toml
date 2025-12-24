@@ -26,3 +26,6 @@ dependencies = [
     "django-tailwind>=4.4.2",
     "cookiecutter>=2.6.0",
 ]
+
+[project.scripts]
+generate-architecture = "generate_architecture:update_architecture_diagram"
